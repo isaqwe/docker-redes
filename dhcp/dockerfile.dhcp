@@ -1,0 +1,21 @@
+FROM ubuntu:latest
+
+# Instalar servidor DHCP
+RUN apt-get update && \
+    apt-get install -y isc-dhcp-server
+
+# Crie o diretório do banco de dados de arrendamento
+RUN mkdir -p /var/lib/dhcp/ && \
+    touch /var/lib/dhcp/dhcpd.leases && \
+    chmod 666 /var/lib/dhcp/dhcpd.leases
+
+# Configurar o servidor DHCP
+COPY ./dhcpd.conf /etc/dhcp/dhcpd.conf
+
+# Expor a porta UDP 67
+EXPOSE 67/udp
+
+# Comando para iniciar o DHCP
+CMD ["dhcpd", "-f", "-d", "--no-pid"]
+
+

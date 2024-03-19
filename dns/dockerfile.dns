@@ -1,0 +1,15 @@
+FROM ubuntu:latest
+
+# Instalar servidor DNS
+RUN apt-get update && \
+    apt-get install -y bind9
+
+# Configurar o servidor DNS
+COPY ./named.conf.options /etc/bind/named.conf.options
+
+# Expor a porta UDP 53
+EXPOSE 53/tcp
+EXPOSE 53/udp
+
+# Comando para iniciar o DNS
+CMD ["/usr/sbin/named", "-g", "-c", "/etc/bind/named.conf", "-u", "bind"]
