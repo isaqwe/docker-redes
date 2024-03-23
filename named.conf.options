@@ -1,0 +1,23 @@
+/**
+ * Arquivo de configuração do BIND (named.conf.options)
+ *
+ * Este arquivo contém as opções de configuração para o servidor DNS BIND.
+ * Ele define o diretório de cache, os servidores forwarders e as permissões de consulta.
+ *
+ * Opções:
+ * - directory: O diretório onde o BIND armazena os arquivos de cache.
+ * - forwarders: Os servidores DNS para os quais as consultas serão encaminhadas.
+ * - allow-query: As permissões de consulta para os clientes.
+ */
+options {
+    directory "/var/cache/bind";
+
+    forwarders {
+        8.8.8.8;
+        8.8.4.4;
+    };
+
+    allow-query {
+        any;
+    };
+};

@@ -1,6 +1,7 @@
+# Imagem base do Ubuntu mais recente
 FROM ubuntu:latest
 
-# Instalar firewall
+# Atualiza o sistema e instala as dependências necessárias
 RUN apt-get update && \
     apt-get install -y iptables && \
     apt-get install -y iptables-persistent && \
@@ -9,12 +10,11 @@ RUN apt-get update && \
     apt-get install -y net-tools && \
     apt-get install -y xtables-addons-common
 
-# Configurar regras do firewall
+# Copia o script de regras de firewall para o diretório /root/
 COPY ./firewall_rules.sh /root/
 
-# Definindo o script de configuração do firewall como executável
+# Define permissões de execução para o script de regras de firewall
 RUN chmod +x /root/firewall_rules.sh
 
-# Executar script de regras do firewall
+# Define o comando padrão a ser executado quando o contêiner for iniciado
 CMD ["bash", "/root/firewall_rules.sh"]
-

@@ -1,0 +1,20 @@
+# Este Dockerfile configura um servidor DHCP usando o pacote isc-dhcp-server no Ubuntu.
+FROM ubuntu:latest
+
+# Atualiza o repositório de pacotes e instala o isc-dhcp-server
+RUN apt-get update && apt-get install -y isc-dhcp-server
+
+# Cria o diretório e o arquivo necessário para dhcpd.leases
+RUN mkdir -p /var/lib/dhcp/ && \
+    touch /var/lib/dhcp/dhcpd.leases && \
+    chmod 666 /var/lib/dhcp/dhcpd.leases
+
+# Copia o arquivo dhcpd.conf para o local apropriado
+COPY dhcpd.conf /etc/dhcp/dhcpd.conf
+
+# Expose port 67 for DHCP traffic
+EXPOSE 67/udp
+
+# Start the DHCP server with the specified options
+CMD ["dhcpd", "-f", "-d", "--no-pid"]
+CMD ["sh", "-c", "dhcpd -f -d --no-pid > /var/log/dhcpd.log 2>&1"]
