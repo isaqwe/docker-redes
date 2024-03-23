@@ -111,24 +111,30 @@ O script `firewall_rules.sh` define as regras do firewall para o servidor. Aqui 
 ### Executando e Testando o Servidor DHCP
 Para executar e testar o servidor DHCP, você pode usar o script `exe.sh` e seguir os passos abaixo:
 
-```bash
+
 1. Execute o script `exe.sh` para criar a rede Docker e executar o servidor DHCP:
+```bash
 ./exe.sh
-
+```
 2. Crie um contêiner Ubuntu na mesma rede:
+```bash
 docker run -it --privileged --network minha_rede ubuntu bash
-
-3. Dentro do contêiner Ubuntu, instale o cliente DHCP:
+```
+4. Dentro do contêiner Ubuntu, instale o cliente DHCP:
+```bash
 apt-get update
 apt-get install -y isc-dhcp-client net-tools
-
+```
 3. Execute o comando `dhclient -r` para liberar o endereço IP atribuído:
+```bash
 dhclient -r
-
+```
 4. Execute o cliente DHCP para solicitar um endereço IP:
+```bash
 dhclient -v eth0
-
+```
 5. Verifique se você recebeu um endereço IP:
+```bash
 ifconfig eth0
 ```
 
@@ -136,14 +142,17 @@ ifconfig eth0
 
 Para testar a resolução de nomes de domínio usando o servidor DNS configurado no Dockerfile.
 
-```bash
+
 1. Construa as imagem Docker usando o Dockerfile fornecido:
+```bash
 ./exe.sh
-
+```
 2. Inicie um shell interativo no contêiner:
+```bash
 docker exec -it meu_servidor_dns /bin/bash
-
+```
 3. Dentro do shell interativo, use o comando dig para testar a resolução de nomes de domínio:
+```bash
 dig www.example.com
 ```
 
@@ -151,13 +160,18 @@ dig www.example.com
 
 Para testar a conectividade de rede e as regras do firewall configuradas no Dockerfile, você pode usar o comando `ping`. Siga os passos abaixo:
 
-```bash
+
 1. Construa a imagem Docker usando o Dockerfile fornecido:
+```bash
 ./exe.sh
-
+```
 2. Inicie um shell interativo no contêiner do firewall:
+```bash
 docker exec -it meu_servidor_firewall /bin/bash
-
+```
 3. Dentro do shell interativo, use o comando ping para testar a conectividade com um endereço IP ou nome de domínio:
+```bash
 ping www.google.com
 ```
+#
+**Isaque Pontes Romualdo, 5º Sistemas de Informação - Serviços de Redes de Computadores**
