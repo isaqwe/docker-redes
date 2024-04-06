@@ -1,11 +1,11 @@
 # Imagem base do Ubuntu mais recente
 FROM ubuntu:latest
 
-# Atualiza o sistema e instala os pacotes bind9 e dnsutils
-RUN apt-get update && apt-get install -y bind9 dnsutils
+# Atualiza o sistema e instala os pacotes bind9, dnsutils e isc-dhcp-client
+RUN apt-get update && apt-get install -y bind9 dnsutils isc-dhcp-client
 
 # Copia o arquivo named.conf.options para o diretório /etc/bind/named.conf.options
-COPY named.conf.options /etc/bind/named.conf.options
+COPY ./named.conf.options /etc/bind/named.conf.options
 
 # Expõe as portas 53/tcp e 53/udp
 EXPOSE 53/tcp
